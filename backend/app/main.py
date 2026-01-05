@@ -18,7 +18,7 @@ app.add_middleware(
 )
 
 
-@app.get("/")
+@app.get("/students")
 def read_root():
     return {"message": "API is running"}
 
