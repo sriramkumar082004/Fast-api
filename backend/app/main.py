@@ -11,7 +11,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "*"
+        "https://react-vite-deploy-umber-psi.vercel.app/"
     ],  # Allow all origins for deployment (restrict in production if needed)
     allow_methods=["*"],
     allow_headers=["*"],
