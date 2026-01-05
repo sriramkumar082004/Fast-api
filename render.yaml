@@ -1,0 +1,22 @@
+databases:
+  - name: student-db
+    databaseName: student_db
+    user: postgres
+    plan: free # Render Free Tier for Postgres
+
+services:
+  - type: web
+    name: fastapi-backend
+    runtime: python
+    region: singapore
+    plan: free
+    rootDir: backend # IMPORTANT: Specifies the app is in the 'backend' folder
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: student-db
+          property: connectionString
