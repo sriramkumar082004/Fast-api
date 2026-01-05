@@ -10,15 +10,13 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://react-vite-deploy-umber-psi.vercel.app/"
-    ],  # Allow all origins for deployment (restrict in production if needed)
+    allow_origins=["*"],  # Allow all origins for development
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 
-@app.get("/students")
+@app.get("/")
 def read_root():
     return {"message": "API is running"}
 
