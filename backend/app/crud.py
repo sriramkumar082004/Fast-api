@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from . import models, schemas
-from auth import security
+from .auth import security
 
 
 def create_student(db: Session, student: schemas.StudentCreate):
