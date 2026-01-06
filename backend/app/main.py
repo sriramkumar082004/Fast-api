@@ -8,7 +8,7 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
- allow_origins=[
+ origins=[
         "https://localhost:5173",
         
     ]
