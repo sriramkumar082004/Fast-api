@@ -1,42 +1,35 @@
 from fastapi import FastAPI, Depends
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from . import models, schemas, crud
-from .database import SessionLocal, engine
-from fastapi.middleware.cors import CORSMiddleware
+from .database import SessionLocal, engine, get_db
+from .routes import auth
 
 models.Base.metadata.create_all(bind=engine)
-
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
 origins = [
     "http://localhost:5173",
     "https://react-vite-deploy-eta-cyan.vercel.app",
-    "https://react-vite-deploy-eta-cyan.vercel.app/" # sometimes add slash at the end 
+    "https://react-vite-deploy-eta-cyan.vercel.app/",  # sometimes add slash at the end
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins, # change [*] to list of origins 
+    allow_origins=origins,  # change [*] to list of origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 
+app.include_router(auth.router)
+
+
 @app.get("/")
 def read_root():
     return {"message": "API is running"}
-
-
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
 
 
 @app.post("/students", response_model=schemas.StudentResponse)

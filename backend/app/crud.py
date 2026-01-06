@@ -1,5 +1,6 @@
 from sqlalchemy.orm import Session
 from . import models, schemas
+from auth import security
 
 
 def create_student(db: Session, student: schemas.StudentCreate):
@@ -32,3 +33,16 @@ def update_student(db: Session, student_id: int, student: schemas.StudentUpdate)
         db.commit()
         db.refresh(student)
         return student
+
+
+def get_user_by_email(db: Session, email: str):
+    return db.query(models.User).filter(models.User.email == email).first()
+
+
+def create_user(db: Session, user: schemas.UserCreate):
+    hashed_password = security.hash_password(user.password)
+    db_user = models.User(email=user.email, password=hashed_password)
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
