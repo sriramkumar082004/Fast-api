@@ -8,11 +8,14 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+ allow_origins=[
+        "https://localhost:5173",
+        
+    ]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://react-vite-deploy-umber-psi.vercel.app"
-    ],
+   
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"]
