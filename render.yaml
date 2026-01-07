@@ -10,9 +10,9 @@ services:
     runtime: python
     region: singapore
     plan: free
-    rootDir: backend # IMPORTANT: Specifies the app is in the 'backend' folder
+    rootDir: . # Run from root since requirements.txt is here
     buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
