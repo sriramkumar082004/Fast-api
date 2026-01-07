@@ -3,36 +3,46 @@ from . import models, schemas
 from .auth import security
 
 
-def create_student(db: Session, student: schemas.StudentCreate):
-    db_student = models.Student(**student.dict())
+def create_student(db: Session, student: schemas.StudentCreate, user_id: int):
+    db_student = models.Student(**student.dict(), user_id=user_id)
     db.add(db_student)
     db.commit()
     db.refresh(db_student)
     return db_student
 
 
-def get_students(db: Session):
-    return db.query(models.Student).all()
+def get_students(db: Session, user_id: int):
+    return db.query(models.Student).filter(models.Student.user_id == user_id).all()
 
 
-def delete_student(db: Session, student_id: int):
-    student = db.query(models.Student).filter(models.Student.id == student_id).first()
+def delete_student(db: Session, student_id: int, user_id: int):
+    student = (
+        db.query(models.Student)
+        .filter(models.Student.id == student_id, models.Student.user_id == user_id)
+        .first()
+    )
     if student:
         db.delete(student)
         db.commit()
     return student
 
 
-def update_student(db: Session, student_id: int, student: schemas.StudentUpdate):
-    student = db.query(models.Student).filter(models.Student.id == student_id).first()
-    if student:
-        student.name = student.name
-        student.email = student.email
-        student.age = student.age
-        db.add(student)
+def update_student(
+    db: Session, student_id: int, student: schemas.StudentUpdate, user_id: int
+):
+    db_student = (
+        db.query(models.Student)
+        .filter(models.Student.id == student_id, models.Student.user_id == user_id)
+        .first()
+    )
+    if db_student:
+        db_student.name = student.name
+        db_student.age = student.age
+        db_student.course = student.course
+        db.add(db_student)
         db.commit()
-        db.refresh(student)
-        return student
+        db.refresh(db_student)
+        return db_student
 
 
 def get_user_by_email(db: Session, email: str):
