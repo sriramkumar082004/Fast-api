@@ -9,15 +9,16 @@ models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
+# main.py in your Backend
 origins = [
     "http://localhost:5173",
-    "https://react-vite-deploy-eta-cyan.vercel.app",
-    "https://react-vite-deploy-eta-cyan.vercel.app/",  # sometimes add slash at the end
+    "https://react-vite-deploy-eta-cyan.vercel.app",  # Add this one (from screenshot 1)
+    "https://react-vite-deploy-murex-gamma.vercel.app" # Add this one (from screenshot 2)
 ]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,  # change [*] to list of origins
+    allow_origins=origins, # OR use ["*"] to allow everyone (easier for testing)
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
