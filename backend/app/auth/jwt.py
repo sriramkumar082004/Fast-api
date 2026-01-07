@@ -1,9 +1,12 @@
 from datetime import datetime, timedelta
 from jose import jwt
 
-SECRET_KEY = "supersecretkey"   # use env variable in production
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60
+import os
+
+SECRET_KEY = os.getenv("SECRET_KEY", "supersecretkey")
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 60))
+
 
 def create_access_token(data: dict):
     to_encode = data.copy()
