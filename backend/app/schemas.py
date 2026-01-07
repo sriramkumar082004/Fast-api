@@ -3,8 +3,8 @@ from pydantic import BaseModel
 
 class StudentBase(BaseModel):
     name: str
-    email: str
     age: int
+    course: str
 
 
 class StudentCreate(StudentBase):
