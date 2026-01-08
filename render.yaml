@@ -20,14 +20,15 @@ services:
         fromDatabase:
           name: student-db
           property: connectionString
-          
+   
+    services:
   - type: web
-    name: aadhar-ocr-api
+    name: fastapi-ocr
     env: python
-    branch: feature-aadhar-extraction
     buildCommand: |
       apt-get update
       apt-get install -y tesseract-ocr
       pip install -r requirements.txt
-    startCommand: uvicorn app.main:app --host 0.0.0.0 --port 10000
+    startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port 10000
+
 

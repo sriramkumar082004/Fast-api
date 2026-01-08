@@ -6,7 +6,6 @@ import platform
 
 # 1. Smart Path Selection (Works on both your Laptop and Render)
 if platform.system() == "Windows":
-    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 else:
     pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
 
