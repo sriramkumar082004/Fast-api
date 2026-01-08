@@ -8,7 +8,7 @@ from .routes import auth
 from .auth.dependencies import get_current_user
 
 from fastapi import FastAPI, UploadFile, File
-from app.ocr import extract_aadhaar_data
+from .ocr import extract_aadhaar_data
 import io
 import pytesseract
 from PIL import Image
