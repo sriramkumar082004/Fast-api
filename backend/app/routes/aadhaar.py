@@ -1,6 +1,6 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException, status
-from app.schemas import AadhaarData
-from app.utils.ocr import extract_text_from_image, parse_aadhaar_details
+from ..schemas import AadhaarData
+from ..utils.ocr import extract_text_from_image, parse_aadhaar_details
 
 router = APIRouter()
 
