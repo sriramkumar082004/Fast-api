@@ -7,12 +7,10 @@ databases:
 services:
   - type: web
     name: fastapi-backend
-    runtime: python
+    runtime: docker
     region: singapore
     plan: free
-    rootDir: . # Run from root since requirements.txt is here
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
+    rootDir: .
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
@@ -20,15 +18,3 @@ services:
         fromDatabase:
           name: student-db
           property: connectionString
-   
-    services:
-  - type: web
-    name: fastapi-ocr
-    env: python
-    buildCommand: |
-      apt-get update
-      apt-get install -y tesseract-ocr
-      pip install -r requirements.txt
-    startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port 10000
-
-
