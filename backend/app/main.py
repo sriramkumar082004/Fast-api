@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from . import models, schemas, crud
 from .database import SessionLocal, engine, get_db
-from .routes import auth
+from .routes import auth, aadhaar
 from .auth.dependencies import get_current_user
 
 models.Base.metadata.create_all(bind=engine)
@@ -13,7 +13,6 @@ app = FastAPI()
 # main.py in your Backend
 origins = [
     "http://localhost:5173",
-    "https://react-vite-deploy-eta-cyan.vercel.app",  # Add this one (from screenshot 1)
     "https://react-vite-deploy-murex-gamma.vercel.app",  # Add this one (from screenshot 2)
 ]
 
@@ -27,6 +26,7 @@ app.add_middleware(
 
 
 app.include_router(auth.router)
+app.include_router(aadhaar.router)
 
 
 @app.get("/")

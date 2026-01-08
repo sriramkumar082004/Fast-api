@@ -52,3 +52,10 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     email: str | None = None
+
+
+class AadhaarData(BaseModel):
+    name: str | None = None
+    dob: str | None = None
+    gender: str | None = None
+    aadhaar_number: str | None = None
