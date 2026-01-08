@@ -54,8 +54,15 @@ class TokenData(BaseModel):
     email: str | None = None
 
 
+class AadhaarData(BaseModel):
+    name: str | None = None
+    dob: str | None = None
+    gender: str | None = None
+    aadhaar_number: str | None = None
+
+
 class AadhaarResponse(BaseModel):
     aadhaar_number: str | None = None
     dob: str | None = None
-    gender: str | None = None 
+    gender: str | None = None
     raw_text: str | None = None
