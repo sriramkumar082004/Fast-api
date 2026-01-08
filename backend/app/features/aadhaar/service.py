@@ -3,13 +3,20 @@ import pytesseract
 import re
 import numpy as np
 import platform
+import shutil
+import os
 
-# 1. Smart Path Selection (Works on both your Laptop and Render)
 if platform.system() == "Windows":
-    # On Windows, we expect Tesseract to be in the system PATH
-    pass
+    possible_path = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    if os.path.exists(possible_path):
+        pytesseract.pytesseract.tesseract_cmd = possible_path
 else:
-    pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
+    # Linux / Render
+    tesseract_path = shutil.which("tesseract")
+    if tesseract_path:
+        pytesseract.pytesseract.tesseract_cmd = tesseract_path
+    else:
+        raise RuntimeError("Tesseract OCR is not installed on the server")
 
 
 def preprocess_image(image):

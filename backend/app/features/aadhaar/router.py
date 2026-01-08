@@ -1,6 +1,6 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException, status
-from ..schemas import AadhaarData
-from ..utils.ocr import extract_text_from_image, parse_aadhaar_details
+from ...schemas import AadhaarData
+from .service import extract_aadhaar_data
 
 router = APIRouter()
 
@@ -19,8 +19,13 @@ async def extract_aadhaar_details(file: UploadFile = File(...)):
 
     try:
         contents = await file.read()
-        text = extract_text_from_image(contents)
-        details = parse_aadhaar_details(text)
+        details = extract_aadhaar_data(contents)
+
+        if "error" in details:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=details["error"],
+            )
 
         return details
     except Exception as e:
