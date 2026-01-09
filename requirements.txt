@@ -1,6 +1,7 @@
 Jinja2==3.1.6
 MarkupSafe==3.0.3
-PyMySQL==1.1.2
+pymysql
+
 Pygments==2.19.2
 SQLAlchemy==2.0.45
 Werkzeug==3.1.4
