@@ -1,6 +1,3 @@
-Django==5.2.8
-Flask==3.1.2
-Flask-MySQL==1.6.0
 Jinja2==3.1.6
 MarkupSafe==3.0.3
 PyMySQL==1.1.2
@@ -25,14 +22,9 @@ cryptography==46.0.3
 cycler==0.12.1
 debugpy==1.8.16
 decorator==5.2.1
-django-admin-sortable2==2.3
-django-bootstrap5==25.3
-django-cors-headers==4.9.0
-djangorestframework==3.16.1
 ecdsa==0.19.1
 executing==2.2.1
 fastapi==0.128.0
-flask-cors==6.0.2
 fonttools==4.61.1
 greenlet==3.3.0
 gunicorn==23.0.0
@@ -89,3 +81,4 @@ uvicorn==0.40.0
 wcwidth==0.2.13
 whitenoise==6.11.0
 opencv-python-headless
+aiofiles
