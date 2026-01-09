@@ -1,7 +1,6 @@
 Jinja2==3.1.6
 MarkupSafe==3.0.3
 pymysql
-
 Pygments==2.19.2
 SQLAlchemy==2.0.45
 Werkzeug==3.1.4
@@ -41,7 +40,6 @@ jupyter_core==5.8.1
 kiwisolver==1.4.9
 matplotlib==3.10.8
 matplotlib-inline==0.1.7
-mysqlclient==2.2.7
 nest-asyncio==1.6.0
 numpy==2.2.6
 packaging==25.0
