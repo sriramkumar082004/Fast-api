@@ -1,8 +1,14 @@
+import sys
+import os
+
+# ▼▼▼ FIX: Add parent directory to path so Python can find 'database' folder ▼▼▼
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# ▲▲▲ END FIX ▲▲▲
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import models
 from database.db_connect import engine
-
 
 # Import Routers from Routes
 from routes.auth_routes import router as auth_router
