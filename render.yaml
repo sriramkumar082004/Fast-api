@@ -10,7 +10,7 @@ services:
     runtime: docker
     region: singapore
     plan: free
-    rootDir: .
+    rootDir: backend
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
