@@ -4,9 +4,10 @@ from jose import JWTError, jwt
 from sqlalchemy.orm import Session
 
 # Relative imports: ... refers to backend.app
-from ... import crud, models, schemas
-from ...database import get_db
-from .jwt import SECRET_KEY, ALGORITHM
+import crud, schemas
+from database import models
+from database.db_connect import get_db
+from utils.jwt import SECRET_KEY, ALGORITHM
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
