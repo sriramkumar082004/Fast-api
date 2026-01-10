@@ -16,10 +16,13 @@ db_name = os.getenv("DB_NAME", "student_db")
 # Handle special characters in password
 encoded_password = urllib.parse.quote_plus(db_password)
 
-DATABASE_URL = os.getenv(
-    "DATABASE_URL",
-    "postgresql://student_db_qoou_user:D34DjKZetKeIQtMomUabBuLIxjOIFIYx@dpg-d5do7jbuibrs7394m4o0-a/student_db_qoou"
-)
+# Check for DATABASE_URL in env (Production/Render), otherwise construct local URL
+DATABASE_URL = os.getenv("DATABASE_URL")
+
+if not DATABASE_URL:
+    DATABASE_URL = (
+        f"postgresql://{db_user}:{encoded_password}@{db_host}:{db_port}/{db_name}"
+    )
 
 engine = create_engine(DATABASE_URL)
 

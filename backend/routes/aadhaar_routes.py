@@ -1,12 +1,14 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException, status
-from ...schemas import AadhaarData
-from .service import extract_aadhaar_data
+import schemas
+from utils.ocr_engine import extract_aadhaar_data
 
 router = APIRouter()
 
 
 @router.post(
-    "/extract-aadhaar", response_model=AadhaarData, status_code=status.HTTP_200_OK
+    "/extract-aadhaar",
+    response_model=schemas.AadhaarData,
+    status_code=status.HTTP_200_OK,
 )
 async def extract_aadhaar_details(file: UploadFile = File(...)):
     """
