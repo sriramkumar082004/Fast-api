@@ -1,3 +1,4 @@
+import time
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
@@ -20,14 +21,34 @@ def register(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
 @router.post("/login", response_model=schemas.Token)
 def login(user: schemas.UserLogin, db: Session = Depends(get_db)):
+    start_total = time.time()
+
+    # Measure DB lookup time
+    t0 = time.time()
     db_user = crud.get_user_by_email(db, email=user.email)
-    if not db_user or not verify_password(user.password, db_user.password):
+    t1 = time.time()
+    print(f"[Login Performance] DB Lookup: {t1 - t0:.4f}s")
+
+    # Measure Password verification time
+    t2 = time.time()
+    valid_password = (
+        verify_password(user.password, db_user.password) if db_user else False
+    )
+    t3 = time.time()
+    print(f"[Login Performance] Password Verify: {t3 - t2:.4f}s")
+
+    if not db_user or not valid_password:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect email or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
+
     access_token = create_access_token(data={"sub": db_user.email})
+
+    end_total = time.time()
+    print(f"[Login Performance] Total Request Time: {end_total - start_total:.4f}s")
+
     return {"access_token": access_token, "token_type": "bearer"}
 
 
