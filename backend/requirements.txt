@@ -81,3 +81,4 @@ wcwidth==0.2.13
 whitenoise==6.11.0
 opencv-python-headless
 aiofiles
+
