@@ -1,3 +1,4 @@
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import models
@@ -9,6 +10,8 @@ from routes.auth_routes import router as auth_router
 from routes.aadhaar_routes import router as aadhaar_router
 from routes.student_routes import router as students_router
 from routes.image_processing_routes import router as image_router
+from dotenv import load_dotenv
+load_dotenv()
 
 models.Base.metadata.create_all(bind=engine)
 
